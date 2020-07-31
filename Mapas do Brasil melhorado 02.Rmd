@@ -1,0 +1,58 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+Carrega as libraries
+```{r}
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+library(readxl)
+library(rgdal)
+library(rgeos)
+library(tidyverse)
+library(sf)
+```
+
+Lê o arquivo de UFs com seus status
+```{r}
+df_uf_status <- read_csv2("data/uf_status.csv", col_names = TRUE, locale(encoding = "ISO-8859-1"), col_types = NULL)
+```
+
+Lê os shapefiles
+```{r}
+sf_brasil <- readOGR("./data/bra_adm1", "BRA_adm1", encoding = "UTF-8", use_iconv = TRUE)
+```
+
+```{r}
+df_brasil_uf_status <- merge(sf_brasil, df_uf_status, by.x="claNAME_1", by.y="UF")
+```
+
+Desenha o mapa
+```{r}
+df_brasil_uf_status %>%
+   ggplot(aes(long, lat, group = group)) +
+  geom_sf(color = "black") +
+  coord_sf()
+```
+```{r}
+df_brasil_uf_status %>%  ggplot() +
+    geom_sf() +
+    geom_point(aes(long, lat, group=group, fill=Status), size = 4, 
+        shape = 23, fill = "darkred") +
+    coord_sf(xlim = c(-88, -78), ylim = c(24.5, 33), expand = FALSE)
+```
+

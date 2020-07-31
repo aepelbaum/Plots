@@ -1,0 +1,70 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+Carrega as libraries
+```{r}
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+library(readxl)
+library(rgdal)
+library(rgeos)
+library(tidyverse)
+```
+
+Lê o arquivo de UFs com seus status
+```{r}
+df_uf_status <- read_csv2("data/uf_status.csv", col_names = TRUE, locale(encoding = "ISO-8859-1"), col_types = NULL)
+```
+
+Lê os shapefiles
+```{r}
+sf_brasil <- readOGR("./data/bra_adm1", "BRA_adm1", encoding = "UTF-8", use_iconv = TRUE)
+```
+
+```{r}
+sf_brasil_simple <- gSimplify(sf_brasil, tol = 0.05, topologyPreserve = TRUE)
+```
+
+```{r}
+sf_brasil_simple_data <- sp::SpatialPolygonsDataFrame(sf_brasil_simple, sf_brasil@data)
+```
+
+
+
+```{r}
+sf_brasil_simple_data@data$UF <- sf_brasil_simple_data@data$NAME_1
+
+```
+
+```{r}
+df_brasil <- fortify(sf_brasil_simple_data, region = "UF")
+```
+
+Faz o join
+```{r}
+df_brasil_uf_status <-  df_brasil %>% left_join(df_uf_status, by = c(id = "UF"))
+
+```
+
+Desenha o mapa
+```{r}
+df_brasil_uf_status %>%
+   ggplot(aes(long, lat, group=group, fill=Status)) +
+  geom_polygon(color = "black") +
+  coord_equal()
+```
