@@ -1,0 +1,56 @@
+---
+title: "Mapa do Brasil"
+output: github_document
+---
+
+```{r,echo=F}
+knitr::opts_chunk$set(
+  cache=T,
+  fig.align = "center",
+  collapse=T,
+  message=F,
+  comment="#>"
+)
+```
+
+Carrega as libraries
+```{r}
+library(tidyverse)
+library(readxl)
+library(sf)
+library(rgdal)
+library(rgeos)
+```
+
+Lê o arquivo de UFs com seus status
+```{r}
+df_uf_status <- read_csv2("data/uf_status.csv", col_names = TRUE,
+                          locale = locale(encoding = "ISO-8859-1"), col_types = NULL)
+```
+
+
+```{r, include=F}
+#Lê os shapefiles
+st_brasil <- readOGR("./data/bra_adm1", "BRA_adm1", encoding = "UTF-8", use_iconv = TRUE) 
+```
+
+```{r, echo=F}
+sf_brasil <- gSimplify(st_brasil, tol = 0.05, topologyPreserve = TRUE) %>%
+  st_as_sf() %>% 
+  mutate(UF=st_brasil@data$NAME_1)
+```
+
+```{r, echo=F}
+sf_brasil_status <- sf_brasil %>% 
+  left_join(df_uf_status, by = "UF")
+```
+
+
+Desenha o mapa
+```{r}
+sf_brasil_status %>% 
+  ggplot() +
+  geom_sf(aes(fill = Status)) +
+  coord_sf()
+```
+
