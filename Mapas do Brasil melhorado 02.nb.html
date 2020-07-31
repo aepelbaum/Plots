@@ -1757,9 +1757,38 @@ summary {
 <p>Carrega as libraries</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShzZilcblxuYGBgIn0= -->
-<pre class="r"><code>library(sf)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZ2RhbClcbmxpYnJhcnkoZ2dwbG90MilcbmxpYnJhcnkoZHBseXIpXG5saWJyYXJ5KHJlYWR4bClcbmxpYnJhcnkocmdkYWwpXG5saWJyYXJ5KHJnZW9zKVxuYGBgIn0= -->
+<pre class="r"><code>library(rgdal)
+library(ggplot2)
+library(dplyr)
+library(readxl)
+library(rgdal)
+library(rgeos)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoicmdlb3MgdmVyc2lvbjogMC41LTMsIChTVk4gcmV2aXNpb24gNjM0KVxuIEdFT1MgcnVudGltZSB2ZXJzaW9uOiAzLjguMC1DQVBJLTEuMTMuMSBcbiBMaW5raW5nIHRvIHNwIHZlcnNpb246IDEuNC0yIFxuIFBvbHlnb24gY2hlY2tpbmc6IFRSVUUgXG4ifQ== -->
+<pre><code>rgeos version: 0.5-3, (SVN revision 634)
+ GEOS runtime version: 3.8.0-CAPI-1.13.1 
+ Linking to sp version: 1.4-2 
+ Polygon checking: TRUE </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
+<pre class="r"><code>library(tidyverse)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2RzIG92ZXJ3cml0dGVuIGJ5ICdkYnBseXInOlxuICBtZXRob2QgICAgICAgICBmcm9tXG4gIHByaW50LnRibF9sYXp5ICAgICBcbiAgcHJpbnQudGJsX3NxbCAgICAgIFxuLS0gQXR0YWNoaW5nIHBhY2thZ2VzIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSB0aWR5dmVyc2UgMS4zLjAgLS1cbnYgdGliYmxlICAzLjAuMyAgICAgdiBwdXJyciAgIDAuMy40XG52IHRpZHlyICAgMS4xLjAgICAgIHYgc3RyaW5nciAxLjQuMFxudiByZWFkciAgIDEuMy4xICAgICB2IGZvcmNhdHMgMC41LjBcbi0tIENvbmZsaWN0cyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gdGlkeXZlcnNlX2NvbmZsaWN0cygpIC0tXG54IGRwbHlyOjpmaWx0ZXIoKSBtYXNrcyBzdGF0czo6ZmlsdGVyKClcbnggZHBseXI6OmxhZygpICAgIG1hc2tzIHN0YXRzOjpsYWcoKVxuIn0= -->
+<pre><code>Registered S3 methods overwritten by &#39;dbplyr&#39;:
+  method         from
+  print.tbl_lazy     
+  print.tbl_sql      
+-- Attaching packages --------------------------------------- tidyverse 1.3.0 --
+v tibble  3.0.3     v purrr   0.3.4
+v tidyr   1.1.0     v stringr 1.4.0
+v readr   1.3.1     v forcats 0.5.0
+-- Conflicts ------------------------------------------ tidyverse_conflicts() --
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShzZilcbmBgYCJ9 -->
+<pre class="r"><code>library(sf)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiTGlua2luZyB0byBHRU9TIDMuOC4wLCBHREFMIDMuMC40LCBQUk9KIDYuMy4xXG4ifQ== -->
 <pre><code>Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1</code></pre>
@@ -1789,9 +1818,9 @@ cols(
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2ZfYnJhc2lsIDwtIHJlYWRPR1IoXCIuL2RhdGEvYnJhX2FkbTFcIiwgXCJCUkFfYWRtMVwiLCBlbmNvZGluZyA9IFwiVVRGLThcIiwgdXNlX2ljb252ID0gVFJVRSlcbmBgYCJ9 -->
 <pre class="r"><code>sf_brasil &lt;- readOGR(&quot;./data/bra_adm1&quot;, &quot;BRA_adm1&quot;, encoding = &quot;UTF-8&quot;, use_iconv = TRUE)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiT0dSIGRhdGEgc291cmNlIHdpdGggZHJpdmVyOiBFU1JJIFNoYXBlZmlsZSBcblNvdXJjZTogXCJDOlxcQWxlXFxSU3R1ZGlvXFxwbG90c1xcZGF0YVxcYnJhX2FkbTFcIiwgbGF5ZXI6IFwiQlJBX2FkbTFcIlxud2l0aCAyNyBmZWF0dXJlc1xuSXQgaGFzIDEyIGZpZWxkc1xuSW50ZWdlcjY0IGZpZWxkcyByZWFkIGFzIHN0cmluZ3M6ICBJRF8wIElEXzEgQ0NOXzEgXG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiT0dSIGRhdGEgc291cmNlIHdpdGggZHJpdmVyOiBFU1JJIFNoYXBlZmlsZSBcblNvdXJjZTogXCJEOlxcQWxlXFxQZXNzb2FsXFxSXFxQcm9qZWN0c1xccGxvdHNcXGRhdGFcXGJyYV9hZG0xXCIsIGxheWVyOiBcIkJSQV9hZG0xXCJcbndpdGggMjcgZmVhdHVyZXNcbkl0IGhhcyAxMiBmaWVsZHNcbkludGVnZXI2NCBmaWVsZHMgcmVhZCBhcyBzdHJpbmdzOiAgSURfMCBJRF8xIENDTl8xIFxuIn0= -->
 <pre><code>OGR data source with driver: ESRI Shapefile 
-Source: &quot;C:\Ale\RStudio\plots\data\bra_adm1&quot;, layer: &quot;BRA_adm1&quot;
+Source: &quot;D:\Ale\Pessoal\R\Projects\plots\data\bra_adm1&quot;, layer: &quot;BRA_adm1&quot;
 with 27 features
 It has 12 fields
 Integer64 fields read as strings:  ID_0 ID_1 CCN_1 </code></pre>
@@ -1800,42 +1829,63 @@ Integer64 fields read as strings:  ID_0 ID_1 CCN_1 </code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYnJhc2lsX3VmX3N0YXR1cyA8LSBtZXJnZShzZl9icmFzaWwsIGRmX3VmX3N0YXR1cywgYnkueD1cIk5BTUVfMVwiLCBieS55PVwiVUZcIilcbmBgYCJ9 -->
-<pre class="r"><code>df_brasil_uf_status &lt;- merge(sf_brasil, df_uf_status, by.x=&quot;NAME_1&quot;, by.y=&quot;UF&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYnJhc2lsX3VmX3N0YXR1cyA8LSBtZXJnZShzZl9icmFzaWwsIGRmX3VmX3N0YXR1cywgYnkueD1cImNsYU5BTUVfMVwiLCBieS55PVwiVUZcIilcbmBgYCJ9 -->
+<pre class="r"><code>df_brasil_uf_status &lt;- merge(sf_brasil, df_uf_status, by.x=&quot;claNAME_1&quot;, by.y=&quot;UF&quot;)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gZml4LmJ5KGJ5LngsIHgpIDogJ2J5JyBtdXN0IHNwZWNpZnkgYSB1bmlxdWVseSB2YWxpZCBjb2x1bW5cbiJ9 -->
+<pre><code>Error in fix.by(by.x, x) : &#39;by&#39; must specify a uniquely valid column</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Desenha o mapa</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYnJhc2lsX3VmX3N0YXR1cyAlPiVcbiAgIGdncGxvdChhZXMobG9uZywgbGF0LCBncm91cCA9IGdyb3VwKSkgK1xuICBnZW9tX3NmKGNvbG9yID0gXCJibGFja1wiLCBhZXMoZ2VvbWV0cnkgPSBQb2x5Z29uKSkgK1xuICBjb29yZF9zZigpXG5gYGAifQ== -->
-<pre class="r"><code>df_brasil_uf_status %&gt;%
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGZfYnJhc2lsX3VmX3N0YXR1cyAlPiVcbiAgIGdncGxvdChhZXMobG9uZywgbGF0LCBncm91cCA9IGdyb3VwKSkgK1xuICBnZW9tX3NmKGNvbG9yID0gXFxibGFja1xcLCBhZXMoZ2VvbWV0cnkgPSBQb2x5Z29uKSkgK1xuICBjb29yZF9zZigpXG5gYGBcbmBgYCJ9 -->
+<pre class="r"><code>```r
+df_brasil_uf_status %&gt;%
    ggplot(aes(long, lat, group = group)) +
-  geom_sf(color = &quot;black&quot;, aes(geometry = Polygon)) +
+  geom_sf(color = \black\, aes(geometry = Polygon)) +
   coord_sf()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUmVnaW9ucyBkZWZpbmVkIGZvciBlYWNoIFBvbHlnb25zXG5FcnJvcjogQWVzdGhldGljcyBtdXN0IGJlIHZhbGlkIGRhdGEgY29sdW1ucy4gUHJvYmxlbWF0aWMgYWVzdGhldGljKHMpOiBnZW9tZXRyeSA9IFBvbHlnb24uIFxuRGlkIHlvdSBtaXN0eXBlIHRoZSBuYW1lIG9mIGEgZGF0YSBjb2x1bW4gb3IgZm9yZ2V0IHRvIGFkZCBhZnRlcl9zdGF0KCk/XG4ifQ== -->
-<pre><code>Regions defined for each Polygons
-Error: Aesthetics must be valid data columns. Problematic aesthetic(s): geometry = Polygon. 
-Did you mistype the name of a data column or forget to add after_stat()?</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-plot-begin eyJoZWlnaHQiOjQzMi42MzI5LCJ3aWR0aCI6NzAwLCJzaXplX2JlaGF2aW9yIjowLCJjb25kaXRpb25zIjpbWzAsIkRvbid0IGtub3cgaG93IHRvIGF1dG9tYXRpY2FsbHkgcGljayBzY2FsZSBmb3Igb2JqZWN0IG9mIHR5cGUgZnVuY3Rpb24uIERlZmF1bHRpbmcgdG8gY29udGludW91cy5cbiJdXX0= -->
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAArwAAAGwCAMAAAB8TkaXAAAAA1BMVEX///+nxBvIAAAACXBIWXMAAA7DAAAOwwHHb6hkAAABPElEQVR4nO3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwafLAABhydcUAAAAABJRU5ErkJggg==" /></p>
-<!-- rnb-plot-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYnJhc2lsX3VmX3N0YXR1cyAlPiUgIGdncGxvdCgpICtcbiAgICBnZW9tX3NmKCkgK1xuICAgIGdlb21fcG9pbnQoYWVzKGxvbmcsIGxhdCwgZ3JvdXA9Z3JvdXAsIGZpbGw9U3RhdHVzKSwgc2l6ZSA9IDQsIFxuICAgICAgICBzaGFwZSA9IDIzLCBmaWxsID0gXCJkYXJrcmVkXCIpICtcbiAgICBjb29yZF9zZih4bGltID0gYygtODgsIC03OCksIHlsaW0gPSBjKDI0LjUsIDMzKSwgZXhwYW5kID0gRkFMU0UpXG5gYGAifQ== -->
-<pre class="r"><code>df_brasil_uf_status %&gt;%  ggplot() +
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiUmVnaW9ucyBkZWZpbmVkIGZvciBlYWNoIFBvbHlnb25zXG5FcnJvcjogQWVzdGhldGljcyBtdXN0IGJlIHZhbGlkIGRhdGEgY29sdW1ucy4gUHJvYmxlbWF0aWMgYWVzdGhldGljKHMpOiBnZW9tZXRyeSA9IFBvbHlnb24uIFxuRGlkIHlvdSBtaXN0eXBlIHRoZSBuYW1lIG9mIGEgZGF0YSBjb2x1bW4gb3IgZm9yZ2V0IHRvIGFkZCBhZnRlcl9zdGF0KCk/XG4ifQ== --&gt;
+</code></pre>
+<p>Regions defined for each Polygons Error: Aesthetics must be valid data columns. Problematic aesthetic(s): geometry = Polygon. Did you mistype the name of a data column or forget to add after_stat()?</p>
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-plot-begin --&gt;
+
+&lt;img src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAArwAAAGwCAMAAAB8TkaXAAAAA1BMVEX///+nxBvIAAAACXBIWXMAAA7DAAAOwwHHb6hkAAABPElEQVR4nO3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwafLAABhydcUAAAAABJRU5ErkJggg==&quot; /&gt;
+
+&lt;!-- rnb-plot-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGZfYnJhc2lsX3VmX3N0YXR1cyAlPiUgIGdncGxvdCgpICtcbiAgICBnZW9tX3NmKCkgK1xuICAgIGdlb21fcG9pbnQoYWVzKGxvbmcsIGxhdCwgZ3JvdXA9Z3JvdXAsIGZpbGw9U3RhdHVzKSwgc2l6ZSA9IDQsIFxuICAgICAgICBzaGFwZSA9IDIzLCBmaWxsID0gXFxkYXJrcmVkXFwpICtcbiAgICBjb29yZF9zZih4bGltID0gYygtODgsIC03OCksIHlsaW0gPSBjKDI0LjUsIDMzKSwgZXhwYW5kID0gRkFMU0UpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+df_brasil_uf_status %&gt;%  ggplot() +
     geom_sf() +
     geom_point(aes(long, lat, group=group, fill=Status), size = 4, 
-        shape = 23, fill = &quot;darkred&quot;) +
+        shape = 23, fill = \darkred\) +
     coord_sf(xlim = c(-88, -78), ylim = c(24.5, 33), expand = FALSE)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUmVnaW9ucyBkZWZpbmVkIGZvciBlYWNoIFBvbHlnb25zXG5FcnJvcjogc3RhdF9zZiByZXF1aXJlcyB0aGUgZm9sbG93aW5nIG1pc3NpbmcgYWVzdGhldGljczogZ2VvbWV0cnlcbiJ9 -->
-<pre><code>Regions defined for each Polygons
-Error: stat_sf requires the following missing aesthetics: geometry</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiUmVnaW9ucyBkZWZpbmVkIGZvciBlYWNoIFBvbHlnb25zXG5FcnJvcjogc3RhdF9zZiByZXF1aXJlcyB0aGUgZm9sbG93aW5nIG1pc3NpbmcgYWVzdGhldGljczogZ2VvbWV0cnlcbiJ9 --&gt;
+</code></pre>
+<p>Regions defined for each Polygons Error: stat_sf requires the following missing aesthetics: geometry ```</p>
 <!-- rnb-output-end -->
-<!-- rnb-plot-begin eyJoZWlnaHQiOjQzMi42MzI5LCJ3aWR0aCI6NzAwLCJzaXplX2JlaGF2aW9yIjowLCJjb25kaXRpb25zIjpbXX0= -->
+<!-- rnb-plot-begin -->
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAArwAAAGwCAMAAAB8TkaXAAAAA1BMVEX///+nxBvIAAAACXBIWXMAAA7DAAAOwwHHb6hkAAABPElEQVR4nO3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwafLAABhydcUAAAAABJRU5ErkJggg==" /></p>
 <!-- rnb-plot-end -->
 <!-- rnb-chunk-end -->
@@ -1889,7 +1939,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("CopyOfMapas do Brasil melhorado 02.Rmd");
+  window.initializeSourceEmbed("Mapas do Brasil melhorado 02.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>

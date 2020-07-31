@@ -38,7 +38,7 @@ sf_brasil <- readOGR("./data/bra_adm1", "BRA_adm1", encoding = "UTF-8", use_icon
 ```
 
 ```{r}
-df_brasil_uf_status <- merge(sf_brasil, df_uf_status, by.x="claNAME_1", by.y="UF")
+df_brasil_uf_status <- merge(sf_brasil, df_uf_status, by.x="NAME_1", by.y="UF")
 ```
 
 Desenha o mapa
