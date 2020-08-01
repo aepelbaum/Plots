@@ -1,0 +1,54 @@
+---
+title: "Mapa do Brasil"
+output: github_document
+---
+
+```{r,echo=F}
+knitr::opts_chunk$set(
+  cache=T,
+  fig.align = "center",
+  collapse=T,
+  message=F,
+  comment="#>"
+)
+```
+
+Carrega as libraries
+```{r}
+library(tidyverse)
+library(readxl)
+library(sf)
+library(rgdal)
+library(rgeos)
+# https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html
+library(geobr)
+```
+
+Le o arquivo de UFs com seus índices de infecção
+```{r}
+df_estados_indice <- read_csv2("data/uf_status.csv", col_names = TRUE,
+                          locale = locale(encoding = "ISO-8859-1"), col_types = NULL)
+```
+
+
+```{r}
+df_estados <- read_state(year=2018) %>% 
+   rename("UF" = name_state)
+```
+
+
+
+```{r}
+df_brasil_indice %>% 
+  left_join(df_estados_indice, by = "UF")
+```
+
+
+Desenha o mapa
+```{r}
+df_brasil_indice %>% 
+  ggplot() +
+  geom_sf(aes(fill = Status)) +
+  coord_sf()
+```
+
