@@ -20,37 +20,32 @@ library(readxl)
 library(sf)
 library(rgdal)
 library(rgeos)
+# https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html
+library(geobr)
 ```
 
-Le o arquivo de UFs com seus status
+Le o arquivo de UFs com seus índices
 ```{r}
-df_uf_status <- read_csv2("data/uf_status.csv", col_names = TRUE,
+df_estados_indice <- read_csv2("data/uf_status.csv", col_names = TRUE,
                           locale = locale(encoding = "ISO-8859-1"), col_types = NULL)
 ```
 
 
-Le os shapefiles
-Buscar shp novo em:
-https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html
 ```{r}
-st_brasil <- readOGR("./data/bra_adm1", "BRA_adm1", encoding = "UTF-8", use_iconv = TRUE) 
+df_estados <- read_state(year=2018) %>% 
+   rename("UF" = name_state) %>% 
+  mutate(UF=str_replace_all(UF, " De "," de ")) %>% 
+  mutate(UF=str_replace_all(UF, " Do "," do "))
 ```
 
 ```{r}
-sf_brasil <- gSimplify(st_brasil, tol = 0.05, topologyPreserve = TRUE) %>%
-  st_as_sf() %>% 
-  mutate(UF=st_brasil@data$NAME_1)
+df_brasil_indice <- df_estados %>% 
+  left_join(df_estados_indice, by = "UF")
 ```
-
-```{r}
-sf_brasil_status <- sf_brasil %>% 
-  left_join(df_uf_status, by = "UF")
-```
-
 
 Desenha o mapa
 ```{r}
-sf_brasil_status %>% 
+df_brasil_indice %>% 
   ggplot() +
   geom_sf(aes(fill = Status)) +
   coord_sf()

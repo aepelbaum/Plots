@@ -24,7 +24,7 @@ library(rgeos)
 library(geobr)
 ```
 
-Le o arquivo de UFs com seus índices de infecção
+Le o arquivo de UFs com seus índices
 ```{r}
 df_estados_indice <- read_csv2("data/uf_status.csv", col_names = TRUE,
                           locale = locale(encoding = "ISO-8859-1"), col_types = NULL)
@@ -33,16 +33,15 @@ df_estados_indice <- read_csv2("data/uf_status.csv", col_names = TRUE,
 
 ```{r}
 df_estados <- read_state(year=2018) %>% 
-   rename("UF" = name_state)
+   rename("UF" = name_state) %>% 
+  mutate(UF=str_replace_all(UF, " De "," de ")) %>% 
+  mutate(UF=str_replace_all(UF, " Do "," do "))
 ```
-
-
 
 ```{r}
-df_brasil_indice %>% 
+df_brasil_indice <- df_estados %>% 
   left_join(df_estados_indice, by = "UF")
 ```
-
 
 Desenha o mapa
 ```{r}
