@@ -5,18 +5,18 @@ Carrega as libraries
 
 ``` r
 library(tidyverse)
-library(readxl)
 library(sf)
 library(rgdal)
 library(rgeos)
 # https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html
 library(geobr)
+library(ggthemes)
 ```
 
 Le o arquivo de UFs com seus índices
 
 ``` r
-df_estados_indice <- read_csv2("data/uf_status.csv", col_names = TRUE,
+df_estados_indice <- read_csv2("data/uf_nivel.csv", col_names = TRUE,
                           locale = locale(encoding = "ISO-8859-1"), col_types = NULL)
 ```
 
@@ -36,10 +36,15 @@ df_brasil_indice <- df_estados %>%
 Desenha o mapa
 
 ``` r
+my_colors <- (c(alto = "red", estavel = "yellow", baixo = "green"))
 df_brasil_indice %>% 
   ggplot() +
-  geom_sf(aes(fill = Status)) +
-  coord_sf()
+  geom_sf(aes(fill = Nivel)) +
+  scale_fill_manual(name = "Nível", values = my_colors) +
+  theme_map() + 
+    labs(x = NULL, 
+         y = NULL,
+         title = "Índice de infecção por COVID-19 no Brasil")
 ```
 
 <img src="README_files/figure-gfm/unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
