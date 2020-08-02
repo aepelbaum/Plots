@@ -24,7 +24,7 @@ library(rgeos)
 
 Le o arquivo de UFs com seus status
 ```{r}
-df_uf_status <- read_csv2("data/uf_status.csv", col_names = TRUE,
+df_uf_nivel <- read_csv2("data/uf_nivel.csv", col_names = TRUE,
                           locale = locale(encoding = "ISO-8859-1"), col_types = NULL)
 ```
 
@@ -43,16 +43,16 @@ sf_brasil <- gSimplify(st_brasil, tol = 0.05, topologyPreserve = TRUE) %>%
 ```
 
 ```{r}
-sf_brasil_status <- sf_brasil %>% 
-  left_join(df_uf_status, by = "UF")
+sf_brasil_nivel <- sf_brasil %>% 
+  left_join(df_uf_nivel, by = "UF")
 ```
 
 
 Desenha o mapa
 ```{r}
-sf_brasil_status %>% 
+sf_brasil_nivel %>% 
   ggplot() +
-  geom_sf(aes(fill = Status)) +
+  geom_sf(aes(fill = Nivel)) +
   coord_sf()
 ```
 

@@ -1,0 +1,91 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(readxl)
+library(sf)
+library(rgdal)
+library(rgeos)
+library(geobr)
+library(ggthemes)
+```
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+df_uf_nivel <- read_csv2("data/uf_nivel.csv", col_names = TRUE,
+                          locale = locale(encoding = "ISO-8859-1"), col_types = NULL)
+```
+
+
+```{r}
+st_brasil <- readOGR("./data/bra_adm1", "BRA_adm1", encoding = "UTF-8", use_iconv = TRUE) 
+```
+
+```{r}
+sf_brasil <- gSimplify(st_brasil, tol = 0.05, topologyPreserve = TRUE) %>%
+  st_as_sf() %>% 
+  mutate(UF=st_brasil@data$NAME_1)
+```
+
+```{r}
+sf_brasil_nivel <- sf_brasil %>% 
+  left_join(df_uf_nivel, by = "UF")
+```
+
+```{r}
+df_estados_indice <- read_csv2("data/uf_nivel.csv", col_names = TRUE,
+                          locale = locale(encoding = "ISO-8859-1"), col_types = NULL)
+```
+
+```{r}
+df_estados <- read_state(year=2018) %>% 
+   rename("UF" = name_state) %>% 
+  mutate(UF=str_replace_all(UF, " De "," de ")) %>% 
+  mutate(UF=str_replace_all(UF, " Do "," do "))
+```
+
+```{r}
+df_brasil_indice <- df_estados %>% 
+  left_join(df_estados_indice, by = "UF")
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+Desenha o mapa
+```{r}
+sf_brasil_nivel %>% 
+  ggplot() +
+  geom_sf(aes(fill = Nivel)) +
+  coord_sf()
+```
+
+### Chart C
+
+```{r}
+my_colors <- (c(alto = "red", estavel = "yellow", baixo = "green"))
+df_brasil_indice %>% 
+  ggplot() +
+  geom_sf(aes(fill = Nivel)) +
+  scale_fill_manual(name = "Nível", values = my_colors) +
+  theme_map() + 
+    labs(x = NULL, 
+         y = NULL,
+         title = "Índice de infecção por COVID-19 no Brasil")
+
+```
+
